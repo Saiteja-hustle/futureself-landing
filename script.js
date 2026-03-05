@@ -1,5 +1,5 @@
 /* ==========================================================================
-   FutureSelf Landing Page — script.js
+   FutureSelf Landing Page - script.js
    ========================================================================== */
 
 (function () {
@@ -66,6 +66,28 @@
     checkScroll();
   }
 
+  // --- Hamburger menu ---
+  function initHamburger() {
+    var hamburger = document.getElementById('nav-hamburger');
+    var navLinks = document.getElementById('nav-links');
+    if (!hamburger || !navLinks) return;
+
+    hamburger.addEventListener('click', function () {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+      document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    });
+
+    // Close menu when a link is clicked
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
   // --- Smooth scroll for anchor links ---
   function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
@@ -105,22 +127,13 @@
     }, { passive: true });
   }
 
-  // --- Button hover ripple effect ---
-  function initButtonEffects() {
-    document.querySelectorAll('.btn-primary').forEach(function (btn) {
-      btn.addEventListener('mouseenter', function () {
-        this.style.transition = 'transform 0.2s, box-shadow 0.2s';
-      });
-    });
-  }
-
   // --- Init ---
   document.addEventListener('DOMContentLoaded', function () {
     createStarfield();
     initFadeIn();
     initNavScroll();
+    initHamburger();
     initSmoothScroll();
     initHeroParallax();
-    initButtonEffects();
   });
 })();
