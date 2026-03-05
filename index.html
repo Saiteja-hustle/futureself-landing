@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FutureSelf — Stop Fixing Your Mornings. Fix Your Evenings.</title>
+  <meta name="description" content="FutureSelf blocks distracting websites before bedtime — including work tools, AI, and 'just one more Google Doc' — so you actually sleep on time and wake up sharp.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="FutureSelf — Stop Fixing Your Mornings. Fix Your Evenings.">
+  <meta property="og:description" content="The Chrome extension that blocks distracting websites before bedtime — including work tools, AI, and productivity apps — so you actually sleep on time.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/og-image.png">
+  <meta property="og:url" content="https://getfutureself.com">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23e8b931'/><stop offset='100%25' stop-color='%23f0d060'/></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23g)'/><circle cx='65' cy='50' r='38' fill='%230a0e1a'/></svg>" type="image/svg+xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Grain overlay -->
+  <div class="grain"></div>
+
+  <!-- Starfield -->
+  <div class="starfield" id="starfield"></div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <span class="nav-moon">
+          <svg width="22" height="22" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="45" fill="#e8b931"/>
+            <circle cx="68" cy="50" r="38" fill="#0a0e1a"/>
+          </svg>
+        </span>
+        FutureSelf
+      </a>
+      <div class="nav-links">
+        <a href="#how-it-works">How it Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#pricing" class="nav-cta">Get FutureSelf</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SECTION 1: HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <span class="hero-label fade-in">The website blocker for your evenings &middot; Chrome Extension</span>
+        <h1 class="hero-headline fade-in">Stop Fixing Your Mornings.<br>Fix Your <span class="gold">Evenings.</span></h1>
+        <p class="hero-sub fade-in">FutureSelf blocks distracting websites before bedtime &mdash; including work tools, AI, and "just one more Google Doc" &mdash; so you actually sleep on time and wake up sharp.</p>
+        <div class="hero-cta-wrap fade-in">
+          <a href="#pricing" class="btn btn-primary">Get FutureSelf &mdash; $19 Lifetime Access</a>
+          <p class="hero-small">Founding Member pricing. One payment. All future updates included.</p>
+        </div>
+      </div>
+      <div class="hero-visual fade-in">
+        <div class="browser-mockup">
+          <div class="browser-bar">
+            <div class="browser-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="browser-url">
+              <span class="lock-icon">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              docs.google.com/document/d/...
+            </div>
+          </div>
+          <div class="browser-content">
+            <div class="intercept-preview">
+              <div class="intercept-moon">
+                <svg width="48" height="48" viewBox="0 0 100 100" fill="none">
+                  <circle cx="50" cy="50" r="45" fill="#e8b931" opacity="0.9"/>
+                  <circle cx="68" cy="50" r="38" fill="#0f1629"/>
+                </svg>
+              </div>
+              <p class="intercept-time">11:47 PM</p>
+              <p class="intercept-label">Your bedtime started 17 minutes ago</p>
+              <div class="intercept-question-box">
+                <p class="intercept-q">That Google Doc will take 20 minutes tonight with a tired brain.</p>
+                <p class="intercept-q accent">Or 7 minutes tomorrow with a fresh one.</p>
+                <p class="intercept-q">Which sounds smarter?</p>
+              </div>
+              <div class="intercept-timer-bar">
+                <div class="intercept-timer-fill"></div>
+              </div>
+              <p class="intercept-timer-text">Take a breath... 7s</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: THE PROBLEM -->
+  <section class="section section-problem" id="problem">
+    <div class="container">
+      <h2 class="section-header fade-in">You Already Know What's Happening</h2>
+      <div class="timeline">
+        <div class="timeline-item fade-in">
+          <div class="timeline-time">10:30 PM</div>
+          <div class="timeline-connector">
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-card">
+            <p class="timeline-trigger">"Just one more scroll."</p>
+            <p class="timeline-result">Midnight.</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-in">
+          <div class="timeline-time">11:00 PM</div>
+          <div class="timeline-connector">
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-card">
+            <p class="timeline-trigger">"Let me just finish this doc."</p>
+            <p class="timeline-result">1 AM.</p>
+          </div>
+        </div>
+        <div class="timeline-item fade-in">
+          <div class="timeline-time">11:30 PM</div>
+          <div class="timeline-connector">
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-card">
+            <p class="timeline-trigger">"One quick ChatGPT question."</p>
+            <p class="timeline-result">45 minutes gone.</p>
+          </div>
+        </div>
+      </div>
+      <p class="problem-closing fade-in">Your alarm goes off. Yesterday's you already stole today.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 3: THE REFRAME -->
+  <section class="section section-reframe" id="reframe">
+    <div class="container container-narrow">
+      <h2 class="section-header fade-in">It's Not Just Netflix.<br>It's Your Google Doc at Midnight.</h2>
+      <p class="reframe-body fade-in">Every blocker on the market thinks social media is the enemy. They're wrong. For people who work from their laptops, the real sleep killer is <strong>fake productivity</strong> &mdash; editing docs that aren't urgent, "planning tomorrow" in Notion, going down AI rabbit holes at 1 AM.</p>
+      <p class="reframe-body fade-in">You feel productive. You're not. You're avoiding sleep in a productivity costume.</p>
+      <blockquote class="reframe-key fade-in">FutureSelf is the first blocker that says: after bedtime, <span class="gold">EVERYTHING</span> on your screen is a distraction. Social media, entertainment, AND work.</blockquote>
+    </div>
+  </section>
+
+  <!-- SECTION 4: HOW IT WORKS -->
+  <section class="section section-how" id="how-it-works">
+    <div class="container">
+      <h2 class="section-header fade-in">Set It Once. Protected Every Night.</h2>
+      <div class="steps">
+        <div class="step fade-in">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Set your wake-up time.</h3>
+          <p class="step-desc">That's the only input that matters.</p>
+        </div>
+        <div class="step-arrow fade-in">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="#e8b931" stroke-width="2"><path d="M0 12h36m0 0l-8-8m8 8l-8 8"/></svg>
+        </div>
+        <div class="step fade-in">
+          <div class="step-number">2</div>
+          <h3 class="step-title">We do the sleep math.</h3>
+          <p class="step-desc">Wake time &minus; sleep hours &minus; wind-down buffer = your screen-off time. Calculated automatically.</p>
+        </div>
+        <div class="step-arrow fade-in">
+          <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="#e8b931" stroke-width="2"><path d="M0 12h36m0 0l-8-8m8 8l-8 8"/></svg>
+        </div>
+        <div class="step fade-in">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Distracting sites go dark.</h3>
+          <p class="step-desc">Social media, streaming, AND work tools, AI, search engines. All blocked. Every night. Automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: THE INTERCEPT SCREEN -->
+  <section class="section section-intercept" id="intercept">
+    <div class="container">
+      <h2 class="section-header fade-in">No Cold Walls. Just One Honest Question.</h2>
+      <p class="section-sub fade-in">Other blockers show you a blank wall. FutureSelf shows you a mirror.</p>
+
+      <div class="intercept-demo fade-in">
+        <div class="browser-mockup browser-mockup-large">
+          <div class="browser-bar">
+            <div class="browser-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="browser-url">
+              <span class="lock-icon">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              chat.openai.com
+            </div>
+          </div>
+          <div class="browser-content browser-content-large">
+            <div class="intercept-full">
+              <div class="intercept-moon">
+                <svg width="64" height="64" viewBox="0 0 100 100" fill="none">
+                  <circle cx="50" cy="50" r="45" fill="#e8b931" opacity="0.9"/>
+                  <circle cx="68" cy="50" r="38" fill="#0c1225"/>
+                </svg>
+              </div>
+              <h3 class="intercept-full-title">FutureSelf</h3>
+              <p class="intercept-full-time">12:14 AM</p>
+              <p class="intercept-full-label">Your bedtime started 44 minutes ago</p>
+              <div class="intercept-full-qbox">
+                <p>That Google Doc will take 20 minutes tonight with a tired brain.</p>
+                <p class="gold">Or 7 minutes tomorrow with a fresh one.</p>
+                <p>Which sounds smarter?</p>
+              </div>
+              <div class="intercept-full-timer">
+                <div class="intercept-full-timer-fill"></div>
+              </div>
+              <p class="intercept-full-timer-text">Take a breath... 10s</p>
+              <div class="intercept-full-actions">
+                <button class="intercept-btn-close">Close This Tab</button>
+                <button class="intercept-btn-override">I Need More Time</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="intercept-explain fade-in">Then a 10-second pause. No skip button. Just you and the question. Most people close the tab &mdash; not because they were forced, but because they finally had a second to think.</p>
+      <p class="intercept-small fade-in">Need to push through? Flexible override from 2 minutes to 24 hours. You're an adult. We just make sure you decide consciously.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 6: WHAT WE BLOCK -->
+  <section class="section section-blocks" id="blocks">
+    <div class="container">
+      <h2 class="section-header fade-in">Yes, We Block Your Work Tools Too.</h2>
+      <div class="block-grid">
+        <div class="block-category fade-in">
+          <h4 class="block-cat-title">Social & Entertainment</h4>
+          <div class="block-tags">
+            <span class="block-tag">YouTube</span>
+            <span class="block-tag">Reddit</span>
+            <span class="block-tag">Twitter</span>
+            <span class="block-tag">Netflix</span>
+            <span class="block-tag">Instagram</span>
+          </div>
+        </div>
+        <div class="block-category fade-in">
+          <h4 class="block-cat-title cat-work">Work & Productivity</h4>
+          <div class="block-tags">
+            <span class="block-tag tag-work">Google Docs</span>
+            <span class="block-tag tag-work">Notion</span>
+            <span class="block-tag tag-work">Slack</span>
+            <span class="block-tag tag-work">Gmail</span>
+            <span class="block-tag tag-work">Figma</span>
+          </div>
+        </div>
+        <div class="block-category fade-in">
+          <h4 class="block-cat-title cat-ai">AI & Research</h4>
+          <div class="block-tags">
+            <span class="block-tag tag-ai">ChatGPT</span>
+            <span class="block-tag tag-ai">Claude</span>
+            <span class="block-tag tag-ai">Perplexity</span>
+            <span class="block-tag tag-ai">Wikipedia</span>
+          </div>
+        </div>
+        <div class="block-category fade-in">
+          <h4 class="block-cat-title cat-search">Search & News</h4>
+          <div class="block-tags">
+            <span class="block-tag tag-search">Google</span>
+            <span class="block-tag tag-search">Hacker News</span>
+            <span class="block-tag tag-search">CNN</span>
+            <span class="block-tag tag-search">Reddit</span>
+          </div>
+        </div>
+      </div>
+      <p class="block-closing fade-in">Every site is a checkbox. You control the list. But the fact that we <strong>suggest</strong> blocking work tools is the point &mdash; because at midnight, work is a distraction from sleep.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 7: COMPARISON -->
+  <section class="section section-compare" id="compare">
+    <div class="container">
+      <h2 class="section-header fade-in">Why Not Just Use Freedom or Cold Turkey?</h2>
+      <div class="compare-table-wrap fade-in">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="compare-other">Other Blockers</th>
+              <th class="compare-fs">FutureSelf</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="compare-feature">Blocks work tools?</td>
+              <td class="compare-other-cell">Only if you add manually</td>
+              <td class="compare-fs-cell">Suggested by default <span class="check">&#10003;</span></td>
+            </tr>
+            <tr>
+              <td class="compare-feature">Built around sleep?</td>
+              <td class="compare-other-cell">No &mdash; generic schedules</td>
+              <td class="compare-fs-cell">Yes &mdash; calculates from wake time <span class="check">&#10003;</span></td>
+            </tr>
+            <tr>
+              <td class="compare-feature">When you hit a block?</td>
+              <td class="compare-other-cell">Cold wall</td>
+              <td class="compare-fs-cell">Reflective question that makes you think <span class="check">&#10003;</span></td>
+            </tr>
+            <tr>
+              <td class="compare-feature">Override?</td>
+              <td class="compare-other-cell">None or nuclear</td>
+              <td class="compare-fs-cell">Flexible: 2 min to 24 hours <span class="check">&#10003;</span></td>
+            </tr>
+            <tr>
+              <td class="compare-feature">Philosophy</td>
+              <td class="compare-other-cell">Restrict you</td>
+              <td class="compare-fs-cell">Make you choose consciously <span class="check">&#10003;</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: PRICING -->
+  <section class="section section-pricing" id="pricing">
+    <div class="container">
+      <h2 class="section-header fade-in">$19. One Time. Forever.</h2>
+      <div class="pricing-card fade-in">
+        <div class="pricing-glow"></div>
+        <div class="pricing-badge">Founding Member</div>
+        <div class="pricing-amount">
+          <span class="pricing-old">$49</span>
+          <span class="pricing-price">$19</span>
+          <span class="pricing-term">Lifetime Access</span>
+        </div>
+        <ul class="pricing-features">
+          <li><span class="check">&#10003;</span> Automatic sleep window protection</li>
+          <li><span class="check">&#10003;</span> Smart wake-time calculation</li>
+          <li><span class="check">&#10003;</span> Full block list with work + AI tools</li>
+          <li><span class="check">&#10003;</span> Reflective intercept questions</li>
+          <li><span class="check">&#10003;</span> Flexible override</li>
+          <li><span class="check">&#10003;</span> All future updates</li>
+        </ul>
+        <a href="#pricing" class="btn btn-primary btn-large">Get Lifetime Access &mdash; $19</a>
+        <p class="pricing-note">Chrome only. Installs in 30 seconds. No account needed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9: COMING SOON -->
+  <section class="section section-roadmap" id="roadmap">
+    <div class="container">
+      <h2 class="section-header fade-in">Sleep Protection Is Chapter One.</h2>
+      <div class="roadmap-grid">
+        <div class="roadmap-card fade-in">
+          <div class="roadmap-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e8b931" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h4>Focus Sessions</h4>
+          <p>Block distractions during deep work hours.</p>
+        </div>
+        <div class="roadmap-card fade-in">
+          <div class="roadmap-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e8b931" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><path d="M12 6v6h6"/></svg>
+          </div>
+          <h4>Pomodoro Mode</h4>
+          <p>Timed sprints with automatic blocking.</p>
+        </div>
+        <div class="roadmap-card fade-in">
+          <div class="roadmap-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e8b931" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h4>Custom Schedules</h4>
+          <p>Protection windows for any part of your day.</p>
+        </div>
+      </div>
+      <p class="roadmap-note fade-in">All included in Founding Member access. No extra charge.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 10: FINAL CTA -->
+  <section class="section section-final" id="final">
+    <div class="container container-narrow">
+      <h2 class="final-headline fade-in">Tonight, You Have a Choice.</h2>
+      <p class="final-body fade-in">The you that scrolls until midnight.<br>Or the you that wakes up <span class="gold">dangerous.</span></p>
+      <a href="#pricing" class="btn btn-primary btn-large fade-in">Get FutureSelf &mdash; $19 Lifetime</a>
+      <p class="final-tagline fade-in">Tomorrow will thank you.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="footer-logo">
+            <svg width="20" height="20" viewBox="0 0 100 100" fill="none">
+              <circle cx="50" cy="50" r="45" fill="#e8b931"/>
+              <circle cx="68" cy="50" r="38" fill="#0a0e1a"/>
+            </svg>
+            FutureSelf
+          </span>
+          <p class="footer-tagline">Tomorrow will thank you.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#pricing">Chrome Web Store</a>
+          <a href="#pricing">Privacy Policy</a>
+          <a href="#pricing">Contact</a>
+        </div>
+      </div>
+      <p class="footer-small">Built for people who work from their laptops and want their mornings back.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
