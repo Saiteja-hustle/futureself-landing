@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FutureSelf — Stop Fixing Your Mornings. Fix Your Evenings.</title>
-  <meta name="description" content="FutureSelf blocks distracting websites before bedtime — including work tools, AI, and 'just one more Google Doc' — so you actually sleep on time and wake up sharp.">
+  <title>FutureSelf - Stop Fixing Your Mornings. Fix Your Evenings.</title>
+  <meta name="description" content="FutureSelf blocks distracting websites before bedtime, including work tools, AI, and productivity apps, so you actually sleep on time and wake up sharp.">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="FutureSelf — Stop Fixing Your Mornings. Fix Your Evenings.">
-  <meta property="og:description" content="The Chrome extension that blocks distracting websites before bedtime — including work tools, AI, and productivity apps — so you actually sleep on time.">
+  <meta property="og:title" content="FutureSelf - Stop Fixing Your Mornings. Fix Your Evenings.">
+  <meta property="og:description" content="The Chrome extension that blocks distracting websites before bedtime, including work tools, AI, and productivity apps, so you actually sleep on time.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="/og-image.png">
   <meta property="og:url" content="https://getfutureself.com">
@@ -43,10 +43,22 @@
         </span>
         FutureSelf
       </a>
-      <div class="nav-links">
+
+      <!-- Hamburger toggle -->
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-links" id="nav-links">
         <a href="#how-it-works">How it Works</a>
         <a href="#pricing">Pricing</a>
-        <a href="#pricing" class="nav-cta">Get FutureSelf</a>
+        <a href="#roadmap" class="nav-roadmap-link">
+          Roadmap
+          <span class="nav-badge">NEW</span>
+        </a>
+        <a href="#pricing" class="nav-cta">Try Free</a>
       </div>
     </div>
   </nav>
@@ -57,10 +69,10 @@
       <div class="hero-text">
         <span class="hero-label fade-in">The website blocker for your evenings &middot; Chrome Extension</span>
         <h1 class="hero-headline fade-in">Stop Fixing Your Mornings.<br>Fix Your <span class="gold">Evenings.</span></h1>
-        <p class="hero-sub fade-in">FutureSelf blocks distracting websites before bedtime &mdash; including work tools, AI, and "just one more Google Doc" &mdash; so you actually sleep on time and wake up sharp.</p>
+        <p class="hero-sub fade-in">FutureSelf blocks distracting websites before bedtime. Work tools, AI, "just one more Google Doc." All of it. So you actually sleep on time and wake up sharp.</p>
         <div class="hero-cta-wrap fade-in">
-          <a href="#pricing" class="btn btn-primary">Get FutureSelf &mdash; $19 Lifetime Access</a>
-          <p class="hero-small">Founding Member pricing. One payment. All future updates included.</p>
+          <a href="#pricing" class="btn btn-green btn-large">Try Free for 24 Hours</a>
+          <a href="#pricing" class="hero-secondary-cta">$19 Lifetime Access &middot; Founding Member</a>
         </div>
       </div>
       <div class="hero-visual fade-in">
@@ -148,7 +160,7 @@
   <section class="section section-reframe" id="reframe">
     <div class="container container-narrow">
       <h2 class="section-header fade-in">It's Not Just Netflix.<br>It's Your Google Doc at Midnight.</h2>
-      <p class="reframe-body fade-in">Every blocker on the market thinks social media is the enemy. They're wrong. For people who work from their laptops, the real sleep killer is <strong>fake productivity</strong> &mdash; editing docs that aren't urgent, "planning tomorrow" in Notion, going down AI rabbit holes at 1 AM.</p>
+      <p class="reframe-body fade-in">Every blocker on the market thinks social media is the enemy. They're wrong. For people who work from their laptops, the real sleep killer is <strong>fake productivity</strong>. Editing docs that aren't urgent. "Planning tomorrow" in Notion. Going down AI rabbit holes at 1 AM.</p>
       <p class="reframe-body fade-in">You feel productive. You're not. You're avoiding sleep in a productivity costume.</p>
       <blockquote class="reframe-key fade-in">FutureSelf is the first blocker that says: after bedtime, <span class="gold">EVERYTHING</span> on your screen is a distraction. Social media, entertainment, AND work.</blockquote>
     </div>
@@ -170,7 +182,7 @@
         <div class="step fade-in">
           <div class="step-number">2</div>
           <h3 class="step-title">We do the sleep math.</h3>
-          <p class="step-desc">Wake time &minus; sleep hours &minus; wind-down buffer = your screen-off time. Calculated automatically.</p>
+          <p class="step-desc">Wake time minus sleep hours minus wind-down buffer = your screen-off time. Calculated automatically.</p>
         </div>
         <div class="step-arrow fade-in">
           <svg width="40" height="24" viewBox="0 0 40 24" fill="none" stroke="#e8b931" stroke-width="2"><path d="M0 12h36m0 0l-8-8m8 8l-8 8"/></svg>
@@ -234,7 +246,7 @@
         </div>
       </div>
 
-      <p class="intercept-explain fade-in">Then a 10-second pause. No skip button. Just you and the question. Most people close the tab &mdash; not because they were forced, but because they finally had a second to think.</p>
+      <p class="intercept-explain fade-in">Then a 10-second pause. No skip button. Just you and the question. Most people close the tab. Not because they were forced, but because they finally had a second to think.</p>
       <p class="intercept-small fade-in">Need to push through? Flexible override from 2 minutes to 24 hours. You're an adult. We just make sure you decide consciously.</p>
     </div>
   </section>
@@ -283,7 +295,7 @@
           </div>
         </div>
       </div>
-      <p class="block-closing fade-in">Every site is a checkbox. You control the list. But the fact that we <strong>suggest</strong> blocking work tools is the point &mdash; because at midnight, work is a distraction from sleep.</p>
+      <p class="block-closing fade-in">Every site is a checkbox. You control the list. But the fact that we <strong>suggest</strong> blocking work tools is the point. Because at midnight, work is a distraction from sleep.</p>
     </div>
   </section>
 
@@ -291,6 +303,8 @@
   <section class="section section-compare" id="compare">
     <div class="container">
       <h2 class="section-header fade-in">Why Not Just Use Freedom or Cold Turkey?</h2>
+
+      <!-- Desktop table -->
       <div class="compare-table-wrap fade-in">
         <table class="compare-table">
           <thead>
@@ -308,8 +322,8 @@
             </tr>
             <tr>
               <td class="compare-feature">Built around sleep?</td>
-              <td class="compare-other-cell">No &mdash; generic schedules</td>
-              <td class="compare-fs-cell">Yes &mdash; calculates from wake time <span class="check">&#10003;</span></td>
+              <td class="compare-other-cell">No, generic schedules</td>
+              <td class="compare-fs-cell">Yes, calculates from wake time <span class="check">&#10003;</span></td>
             </tr>
             <tr>
               <td class="compare-feature">When you hit a block?</td>
@@ -329,32 +343,104 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Mobile stacked cards -->
+      <div class="compare-cards fade-in">
+        <div class="compare-card-item">
+          <h4 class="compare-card-feature">Blocks work tools?</h4>
+          <div class="compare-card-row compare-card-other"><span class="compare-card-label">Others:</span> Only if you add manually</div>
+          <div class="compare-card-row compare-card-fs"><span class="compare-card-label">FutureSelf:</span> Suggested by default <span class="check">&#10003;</span></div>
+        </div>
+        <div class="compare-card-item">
+          <h4 class="compare-card-feature">Built around sleep?</h4>
+          <div class="compare-card-row compare-card-other"><span class="compare-card-label">Others:</span> No, generic schedules</div>
+          <div class="compare-card-row compare-card-fs"><span class="compare-card-label">FutureSelf:</span> Yes, calculates from wake time <span class="check">&#10003;</span></div>
+        </div>
+        <div class="compare-card-item">
+          <h4 class="compare-card-feature">When you hit a block?</h4>
+          <div class="compare-card-row compare-card-other"><span class="compare-card-label">Others:</span> Cold wall</div>
+          <div class="compare-card-row compare-card-fs"><span class="compare-card-label">FutureSelf:</span> Reflective question <span class="check">&#10003;</span></div>
+        </div>
+        <div class="compare-card-item">
+          <h4 class="compare-card-feature">Override?</h4>
+          <div class="compare-card-row compare-card-other"><span class="compare-card-label">Others:</span> None or nuclear</div>
+          <div class="compare-card-row compare-card-fs"><span class="compare-card-label">FutureSelf:</span> Flexible: 2 min to 24 hrs <span class="check">&#10003;</span></div>
+        </div>
+        <div class="compare-card-item">
+          <h4 class="compare-card-feature">Philosophy</h4>
+          <div class="compare-card-row compare-card-other"><span class="compare-card-label">Others:</span> Restrict you</div>
+          <div class="compare-card-row compare-card-fs"><span class="compare-card-label">FutureSelf:</span> Make you choose consciously <span class="check">&#10003;</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7.5: BUILT BY HUSTLE CLUB -->
+  <section class="section section-hustle" id="hustle-club">
+    <div class="container container-narrow">
+      <h2 class="section-header fade-in">Built by People Who Fixed Their Own Sleep</h2>
+      <div class="hustle-card fade-in">
+        <p class="hustle-body">FutureSelf is built by <strong>Hustle Club</strong> &mdash; a community that makes early rising and high-productivity habits easy. We've helped 100+ people fix their sleep routines and become consistent early risers.</p>
+        <p class="hustle-body">FutureSelf started as our own internal tool. We built it because we needed it. Now we're sharing it with you.</p>
+        <div class="hustle-proof">
+          <div class="hustle-avatars">
+            <span class="hustle-avatar" style="background:#e8b931;"></span>
+            <span class="hustle-avatar" style="background:#4ade80;"></span>
+            <span class="hustle-avatar" style="background:#38bdf8;"></span>
+            <span class="hustle-avatar" style="background:#a78bfa;"></span>
+            <span class="hustle-avatar" style="background:#fb923c;"></span>
+          </div>
+          <span class="hustle-proof-text">Join 100+ early risers</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- SECTION 8: PRICING -->
   <section class="section section-pricing" id="pricing">
     <div class="container">
-      <h2 class="section-header fade-in">$19. One Time. Forever.</h2>
-      <div class="pricing-card fade-in">
-        <div class="pricing-glow"></div>
-        <div class="pricing-badge">Founding Member</div>
-        <div class="pricing-amount">
-          <span class="pricing-old">$49</span>
-          <span class="pricing-price">$19</span>
-          <span class="pricing-term">Lifetime Access</span>
+      <h2 class="section-header fade-in">Start Free. Upgrade When You're Ready.</h2>
+      <div class="pricing-grid">
+
+        <!-- Free Trial Card -->
+        <div class="pricing-card pricing-card-free fade-in">
+          <div class="pricing-badge pricing-badge-green">Free Trial</div>
+          <div class="pricing-amount">
+            <span class="pricing-price">$0</span>
+            <span class="pricing-term">24 hours of full protection</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span class="check">&#10003;</span> All features included</li>
+            <li><span class="check">&#10003;</span> Full block list with work + AI tools</li>
+            <li><span class="check">&#10003;</span> Reflective intercept questions</li>
+            <li><span class="check">&#10003;</span> No credit card needed</li>
+          </ul>
+          <a href="#pricing" class="btn btn-green btn-full">Start Free Trial</a>
+          <p class="pricing-note">Chrome only. Installs in 30 seconds.</p>
         </div>
-        <ul class="pricing-features">
-          <li><span class="check">&#10003;</span> Automatic sleep window protection</li>
-          <li><span class="check">&#10003;</span> Smart wake-time calculation</li>
-          <li><span class="check">&#10003;</span> Full block list with work + AI tools</li>
-          <li><span class="check">&#10003;</span> Reflective intercept questions</li>
-          <li><span class="check">&#10003;</span> Flexible override</li>
-          <li><span class="check">&#10003;</span> All future updates</li>
-        </ul>
-        <a href="#pricing" class="btn btn-primary btn-large">Get Lifetime Access &mdash; $19</a>
-        <p class="pricing-note">Chrome only. Installs in 30 seconds. No account needed.</p>
+
+        <!-- Lifetime Card -->
+        <div class="pricing-card pricing-card-lifetime fade-in">
+          <div class="pricing-glow"></div>
+          <div class="pricing-badge">Founding Member</div>
+          <div class="pricing-amount">
+            <span class="pricing-old">$49</span>
+            <span class="pricing-price">$19</span>
+            <span class="pricing-term">Lifetime Access</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span class="check">&#10003;</span> Everything in free trial, forever</li>
+            <li><span class="check">&#10003;</span> Smart wake-time calculation</li>
+            <li><span class="check">&#10003;</span> Flexible override</li>
+            <li><span class="check">&#10003;</span> All future updates</li>
+            <li><span class="check">&#10003;</span> Priority: Focus Sessions, Pomodoro, App Blocker</li>
+          </ul>
+          <a href="#pricing" class="btn btn-primary btn-full">Get Lifetime Access &middot; $19</a>
+          <p class="pricing-note">One payment. No subscription. No account needed.</p>
+        </div>
+
       </div>
+      <p class="pricing-bottom-note fade-in">Try it tonight. If you sleep better, upgrade tomorrow.</p>
     </div>
   </section>
 
@@ -394,7 +480,10 @@
     <div class="container container-narrow">
       <h2 class="final-headline fade-in">Tonight, You Have a Choice.</h2>
       <p class="final-body fade-in">The you that scrolls until midnight.<br>Or the you that wakes up <span class="gold">dangerous.</span></p>
-      <a href="#pricing" class="btn btn-primary btn-large fade-in">Get FutureSelf &mdash; $19 Lifetime</a>
+      <div class="final-ctas fade-in">
+        <a href="#pricing" class="btn btn-green btn-large">Try Free for 24 Hours</a>
+        <a href="#pricing" class="btn btn-primary">Get Lifetime Access &middot; $19</a>
+      </div>
       <p class="final-tagline fade-in">Tomorrow will thank you.</p>
     </div>
   </section>
