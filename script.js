@@ -5,6 +5,16 @@
 (function () {
   'use strict';
 
+  // --- Supabase Setup ---
+  var SUPABASE_URL = 'https://odcmrhnwxzgyfodoscqw.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kY21yaG53eHpneWZvZG9zY3F3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NzA5NTUsImV4cCI6MjA4ODM0Njk1NX0.dbTm2SsVo7iAWfoULhfRgayKBmAO8v7Y2Q-fHzvzSPQ';
+  var CHROME_STORE_URL = '#pricing'; // Replace with actual Chrome Web Store URL when available
+
+  var supabaseClient = null;
+  if (window.supabase && window.supabase.createClient) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+
   // --- Starfield ---
   function createStarfield() {
     var container = document.getElementById('starfield');
@@ -127,6 +137,219 @@
     }, { passive: true });
   }
 
+  // --- Auth Modal ---
+  function initAuthModal() {
+    var modal = document.getElementById('auth-modal');
+    var closeBtn = document.getElementById('auth-modal-close');
+    if (!modal || !closeBtn) return;
+
+    var tabs = modal.querySelectorAll('.auth-tab');
+    var signupContent = document.getElementById('auth-tab-signup');
+    var loginContent = document.getElementById('auth-tab-login');
+
+    function openModal(tab) {
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      switchTab(tab || 'signup');
+      clearMessages();
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function switchTab(tabName) {
+      tabs.forEach(function (t) {
+        t.classList.toggle('active', t.getAttribute('data-tab') === tabName);
+      });
+      if (signupContent) signupContent.style.display = tabName === 'signup' ? 'block' : 'none';
+      if (loginContent) loginContent.style.display = tabName === 'login' ? 'block' : 'none';
+      clearMessages();
+    }
+
+    function clearMessages() {
+      var errors = modal.querySelectorAll('.auth-error');
+      var successes = modal.querySelectorAll('.auth-success');
+      errors.forEach(function (el) { el.textContent = ''; });
+      successes.forEach(function (el) { el.textContent = ''; });
+    }
+
+    // Tab switching
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        switchTab(this.getAttribute('data-tab'));
+      });
+    });
+
+    // Close button
+    closeBtn.addEventListener('click', closeModal);
+
+    // Click outside to close
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal();
+    });
+
+    // Escape key to close
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+    });
+
+    // Signup form
+    var signupForm = document.getElementById('auth-signup-form');
+    if (signupForm && supabaseClient) {
+      signupForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = document.getElementById('signup-email').value.trim();
+        var password = document.getElementById('signup-password').value;
+        var errorEl = document.getElementById('signup-error');
+        var successEl = document.getElementById('signup-success');
+        errorEl.textContent = '';
+        successEl.textContent = '';
+
+        if (password.length < 6) {
+          errorEl.textContent = 'Password must be at least 6 characters.';
+          return;
+        }
+
+        var submitBtn = signupForm.querySelector('.auth-submit');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Creating account...';
+
+        supabaseClient.auth.signUp({ email: email, password: password })
+          .then(function (result) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Start Free Trial';
+            if (result.error) {
+              errorEl.textContent = result.error.message;
+            } else {
+              successEl.textContent = 'Check your email to confirm your account!';
+              signupForm.reset();
+            }
+          })
+          .catch(function (err) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Start Free Trial';
+            errorEl.textContent = 'Something went wrong. Please try again.';
+          });
+      });
+    }
+
+    // Login form
+    var loginForm = document.getElementById('auth-login-form');
+    if (loginForm && supabaseClient) {
+      loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = document.getElementById('login-email').value.trim();
+        var password = document.getElementById('login-password').value;
+        var errorEl = document.getElementById('login-error');
+        var successEl = document.getElementById('login-success');
+        errorEl.textContent = '';
+        successEl.textContent = '';
+
+        var submitBtn = loginForm.querySelector('.auth-submit');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Logging in...';
+
+        supabaseClient.auth.signInWithPassword({ email: email, password: password })
+          .then(function (result) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Log In';
+            if (result.error) {
+              errorEl.textContent = result.error.message;
+            } else {
+              successEl.textContent = "You're logged in! Install the extension.";
+              closeModal();
+              updateUIForAuth(result.data.session);
+            }
+          })
+          .catch(function (err) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Log In';
+            errorEl.textContent = 'Something went wrong. Please try again.';
+          });
+      });
+    }
+
+    // Expose openModal for CTA buttons
+    window._openAuthModal = openModal;
+  }
+
+  // --- CTA Button Handlers ---
+  function initCTAButtons() {
+    // Free trial CTAs open the auth modal (signup tab)
+    document.querySelectorAll('.cta-free-trial').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (window._openAuthModal) {
+          window._openAuthModal('signup');
+        }
+      });
+    });
+  }
+
+  // --- Auth State Management ---
+  function updateUIForAuth(session) {
+    var navUser = document.getElementById('nav-user');
+    var navUserEmail = document.getElementById('nav-user-email');
+    var navCtaBtn = document.getElementById('nav-cta-btn');
+    var freeTrialBtns = document.querySelectorAll('.cta-free-trial');
+
+    if (session && session.user) {
+      // Logged in
+      if (navUser) navUser.style.display = 'flex';
+      if (navUserEmail) navUserEmail.textContent = session.user.email;
+      if (navCtaBtn) {
+        navCtaBtn.textContent = 'Install Extension';
+        navCtaBtn.href = CHROME_STORE_URL;
+        navCtaBtn.classList.remove('cta-free-trial');
+      }
+
+      freeTrialBtns.forEach(function (btn) {
+        btn.textContent = 'Install Extension';
+        btn.href = CHROME_STORE_URL;
+        btn.classList.remove('cta-free-trial');
+        // Remove old click handler by cloning
+        var newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+      });
+    } else {
+      // Not logged in
+      if (navUser) navUser.style.display = 'none';
+      if (navCtaBtn) {
+        navCtaBtn.textContent = 'Try Free';
+        navCtaBtn.href = '#pricing';
+      }
+    }
+  }
+
+  function initAuthState() {
+    if (!supabaseClient) return;
+
+    supabaseClient.auth.getSession().then(function (result) {
+      var session = result.data ? result.data.session : null;
+      updateUIForAuth(session);
+    });
+
+    // Listen for auth changes
+    supabaseClient.auth.onAuthStateChange(function (event, session) {
+      updateUIForAuth(session);
+    });
+  }
+
+  // --- Logout ---
+  function initLogout() {
+    var logoutBtn = document.getElementById('nav-logout');
+    if (!logoutBtn || !supabaseClient) return;
+
+    logoutBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      supabaseClient.auth.signOut().then(function () {
+        updateUIForAuth(null);
+      });
+    });
+  }
+
   // --- Init ---
   document.addEventListener('DOMContentLoaded', function () {
     createStarfield();
@@ -135,5 +358,9 @@
     initHamburger();
     initSmoothScroll();
     initHeroParallax();
+    initAuthModal();
+    initCTAButtons();
+    initAuthState();
+    initLogout();
   });
 })();

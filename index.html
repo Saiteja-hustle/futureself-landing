@@ -23,6 +23,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <!-- Grain overlay -->
@@ -58,7 +61,11 @@
           Roadmap
           <span class="nav-badge">NEW</span>
         </a>
-        <a href="#pricing" class="nav-cta">Try Free</a>
+        <span class="nav-user" id="nav-user" style="display:none;">
+          <span class="nav-user-email" id="nav-user-email"></span>
+          <a href="#" class="nav-logout" id="nav-logout">Log out</a>
+        </span>
+        <a href="#pricing" class="nav-cta" id="nav-cta-btn">Try Free</a>
       </div>
     </div>
   </nav>
@@ -71,8 +78,8 @@
         <h1 class="hero-headline fade-in">Stop Fixing Your Mornings.<br>Fix Your <span class="gold">Evenings.</span></h1>
         <p class="hero-sub fade-in">FutureSelf blocks distracting websites before bedtime. Work tools, AI, "just one more Google Doc." All of it. So you actually sleep on time and wake up sharp.</p>
         <div class="hero-cta-wrap fade-in">
-          <a href="#pricing" class="btn btn-green btn-large">Try Free for 24 Hours</a>
-          <a href="#pricing" class="hero-secondary-cta">$19 Lifetime Access &middot; Founding Member</a>
+          <a href="#pricing" class="btn btn-green btn-large cta-free-trial">Try Free for 24 Hours</a>
+          <a href="https://hustleclub8.gumroad.com/l/zjqrbh" class="hero-secondary-cta cta-lifetime">$19 Lifetime Access &middot; Founding Member</a>
         </div>
       </div>
       <div class="hero-visual fade-in">
@@ -415,7 +422,7 @@
             <li><span class="check">&#10003;</span> Reflective intercept questions</li>
             <li><span class="check">&#10003;</span> No credit card needed</li>
           </ul>
-          <a href="#pricing" class="btn btn-green btn-full">Start Free Trial</a>
+          <a href="#pricing" class="btn btn-green btn-full cta-free-trial">Start Free Trial</a>
           <p class="pricing-note">Chrome only. Installs in 30 seconds.</p>
         </div>
 
@@ -435,8 +442,9 @@
             <li><span class="check">&#10003;</span> All future updates</li>
             <li><span class="check">&#10003;</span> Priority: Focus Sessions, Pomodoro, App Blocker</li>
           </ul>
-          <a href="#pricing" class="btn btn-primary btn-full">Get Lifetime Access &middot; $19</a>
+          <a href="https://hustleclub8.gumroad.com/l/zjqrbh" class="btn btn-primary btn-full cta-lifetime">Get Lifetime Access &middot; $19</a>
           <p class="pricing-note">One payment. No subscription. No account needed.</p>
+          <p class="pricing-note" style="margin-top:6px;font-style:italic;">After purchase, your account is upgraded automatically</p>
         </div>
 
       </div>
@@ -481,8 +489,8 @@
       <h2 class="final-headline fade-in">Tonight, You Have a Choice.</h2>
       <p class="final-body fade-in">The you that scrolls until midnight.<br>Or the you that wakes up <span class="gold">dangerous.</span></p>
       <div class="final-ctas fade-in">
-        <a href="#pricing" class="btn btn-green btn-large">Try Free for 24 Hours</a>
-        <a href="#pricing" class="btn btn-primary">Get Lifetime Access &middot; $19</a>
+        <a href="#pricing" class="btn btn-green btn-large cta-free-trial">Try Free for 24 Hours</a>
+        <a href="https://hustleclub8.gumroad.com/l/zjqrbh" class="btn btn-primary cta-lifetime">Get Lifetime Access &middot; $19</a>
       </div>
       <p class="final-tagline fade-in">Tomorrow will thank you.</p>
     </div>
@@ -511,6 +519,45 @@
       <p class="footer-small">Built for people who work from their laptops and want their mornings back.</p>
     </div>
   </footer>
+
+  <!-- Auth Modal -->
+  <div class="auth-modal-overlay" id="auth-modal" style="display:none;">
+    <div class="auth-modal">
+      <button class="auth-modal-close" id="auth-modal-close">&times;</button>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="signup">Start Free Trial</button>
+        <button class="auth-tab" data-tab="login">Log In</button>
+      </div>
+      <div class="auth-tab-content" id="auth-tab-signup">
+        <form id="auth-signup-form" autocomplete="off">
+          <div class="auth-field">
+            <input type="email" id="signup-email" placeholder="Email address" required autocomplete="email">
+          </div>
+          <div class="auth-field">
+            <input type="password" id="signup-password" placeholder="Password (min 6 characters)" required minlength="6" autocomplete="new-password">
+          </div>
+          <div class="auth-error" id="signup-error"></div>
+          <div class="auth-success" id="signup-success"></div>
+          <button type="submit" class="btn btn-green btn-full auth-submit">Start Free Trial</button>
+          <p class="auth-note">24 hours of full access. No credit card.</p>
+        </form>
+      </div>
+      <div class="auth-tab-content" id="auth-tab-login" style="display:none;">
+        <form id="auth-login-form" autocomplete="off">
+          <div class="auth-field">
+            <input type="email" id="login-email" placeholder="Email address" required autocomplete="email">
+          </div>
+          <div class="auth-field">
+            <input type="password" id="login-password" placeholder="Password" required autocomplete="current-password">
+          </div>
+          <div class="auth-error" id="login-error"></div>
+          <div class="auth-success" id="login-success"></div>
+          <button type="submit" class="btn btn-green btn-full auth-submit">Log In</button>
+          <p class="auth-note">Already have an account?</p>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
