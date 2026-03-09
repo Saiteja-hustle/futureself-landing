@@ -262,6 +262,12 @@ img {
   box-shadow: 0 8px 32px rgba(74, 222, 128, 0.35);
 }
 
+.btn-muted {
+  background: rgba(122, 129, 148, 0.25);
+  color: var(--muted);
+  cursor: default;
+}
+
 .btn-large {
   padding: 20px 44px;
   font-size: 1.1rem;
@@ -1103,8 +1109,19 @@ img {
   border-color: rgba(74, 222, 128, 0.2);
 }
 
+.pricing-card-muted {
+  background: rgba(10, 12, 22, 0.85);
+  border-color: rgba(255, 255, 255, 0.08);
+  opacity: 0.75;
+}
+
 .pricing-card-lifetime {
   border-color: rgba(232, 185, 49, 0.2);
+}
+
+.pricing-card-hero {
+  border-color: rgba(251, 191, 36, 0.5);
+  box-shadow: 0 0 24px rgba(251, 191, 36, 0.12), 0 0 48px rgba(251, 191, 36, 0.06);
 }
 
 .pricing-glow {
@@ -1134,6 +1151,18 @@ img {
 .pricing-badge-green {
   color: var(--green);
   background: var(--green-dim);
+}
+
+.pricing-badge-muted {
+  color: var(--muted);
+  background: rgba(122, 129, 148, 0.15);
+}
+
+.pricing-urgency {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fbbf24;
+  margin-bottom: 20px;
 }
 
 .pricing-amount {
