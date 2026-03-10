@@ -1095,6 +1095,11 @@ img {
   align-items: start;
 }
 
+.pricing-grid-single {
+  grid-template-columns: minmax(320px, 620px);
+  justify-content: center;
+}
+
 .pricing-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -1148,6 +1153,12 @@ img {
   margin-bottom: 24px;
 }
 
+.pricing-badge-tilt {
+  transform: rotate(-6deg);
+  border: 1px solid rgba(251, 191, 36, 0.45);
+  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.18);
+}
+
 .pricing-badge-green {
   color: var(--green);
   background: var(--green-dim);
@@ -1169,6 +1180,12 @@ img {
   margin-bottom: 32px;
 }
 
+.pricing-price-line {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
 .pricing-old {
   font-size: 1.3rem;
   color: var(--muted);
@@ -1182,6 +1199,12 @@ img {
   font-weight: 700;
   color: var(--cream);
   letter-spacing: -0.03em;
+}
+
+.pricing-slash {
+  font-size: 1rem;
+  color: var(--cream-dim);
+  letter-spacing: 0;
 }
 
 .pricing-term {
