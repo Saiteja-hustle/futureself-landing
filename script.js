@@ -219,7 +219,7 @@
         supabaseClient.auth.signUp({ email: email, password: password })
           .then(function (result) {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Start Free Trial';
+            submitBtn.textContent = 'Join Waitlist';
             if (result.error) {
               errorEl.textContent = result.error.message;
             } else {
@@ -229,7 +229,7 @@
           })
           .catch(function (err) {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Start Free Trial';
+            submitBtn.textContent = 'Join Waitlist';
             errorEl.textContent = 'Something went wrong. Please try again.';
           });
       });
@@ -317,7 +317,7 @@
       // Not logged in
       if (navUser) navUser.style.display = 'none';
       if (navCtaBtn) {
-        navCtaBtn.textContent = 'Try Free';
+        navCtaBtn.textContent = 'Install Extension';
         navCtaBtn.href = '#pricing';
       }
     }
