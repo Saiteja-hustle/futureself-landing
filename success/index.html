@@ -13,9 +13,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-  <!-- Supabase JS -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -120,9 +117,6 @@
 
   <script>
     (async function () {
-      const SUPABASE_URL = 'https://odcmrhnwxzgyfodoscqw.supabase.co';
-      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kY21yaG53eHpneWZvZG9zY3F3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NzA5NTUsImV4cCI6MjA4ODM0Njk1NX0.dbTm2SsVo7iAWfoULhfRgayKBmAO8v7Y2Q-fHzvzSPQ';
-
       const contentEl = document.getElementById('content');
 
       function showLoading() {
@@ -169,40 +163,21 @@
       showLoading();
 
       try {
-        const response = await fetch(
-          `${SUPABASE_URL}/rest/v1/profiles?email=eq.${encodeURIComponent(email)}`,
-          {
-            method: 'PATCH',
-            headers: {
-              'apikey': SUPABASE_ANON_KEY,
-              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-              'Content-Type': 'application/json',
-              'Prefer': 'return=representation'
-            },
-            body: JSON.stringify({
-              is_paid: true,
-              paid_at: new Date().toISOString(),
-              payment_id: paymentId || null
-            })
-          }
-        );
+        const response = await fetch('/api/confirm-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, payment_id: paymentId })
+        });
 
-        console.log('[FutureSelf] PATCH response status:', response.status);
+        console.log('[FutureSelf] confirm-payment response status:', response.status);
 
-        const responseText = await response.text();
-        console.log('[FutureSelf] PATCH response body:', responseText);
+        const data = await response.json();
+        console.log('[FutureSelf] confirm-payment response body:', data);
 
         if (!response.ok) {
-          console.error('[FutureSelf] PATCH failed:', response.status, responseText);
+          console.error('[FutureSelf] confirm-payment failed:', data);
           showError('Something went wrong. Email support. Your payment is safe.');
           return;
-        }
-
-        // Check if any rows were actually updated (RLS may silently block)
-        let rows = [];
-        try { rows = JSON.parse(responseText); } catch (e) { /* ignore */ }
-        if (Array.isArray(rows) && rows.length === 0) {
-          console.warn('[FutureSelf] 0 rows updated — possible RLS block or email not found:', email);
         }
 
         showSuccess();
