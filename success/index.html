@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FutureSelf - Payment Confirmed</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96' fill='none'><circle cx='48' cy='48' r='48' fill='%231B2138'/><line x1='48' y1='14' x2='48' y2='24' stroke='%23F5A623' stroke-width='4.5' stroke-linecap='round'/><line x1='35' y1='17' x2='37.5' y2='27' stroke='%23F5A623' stroke-width='4.5' stroke-linecap='round'/><line x1='61' y1='17' x2='58.5' y2='27' stroke='%23F5A623' stroke-width='4.5' stroke-linecap='round'/><line x1='25' y1='24' x2='29.5' y2='32' stroke='%23F5A623' stroke-width='4' stroke-linecap='round'/><line x1='71' y1='24' x2='66.5' y2='32' stroke='%23F5A623' stroke-width='4' stroke-linecap='round'/><rect x='38' y='36' width='6' height='22' rx='3' fill='%235BC67A'/><rect x='52' y='36' width='6' height='22' rx='3' fill='%235BC67A'/><path d='M30 66C30 66 38 76 48 76C58 76 66 66 66 66' stroke='%235BC67A' stroke-width='4.5' stroke-linecap='round'/></svg>" type="image/svg+xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #0a0e1a;
+      --bg-card: #111627;
+      --gold: #e8b931;
+      --green: #4ade80;
+      --cream: #f0e6d3;
+      --cream-dim: rgba(240, 230, 211, 0.6);
+      --muted: #7a8194;
+      --border: rgba(240, 230, 211, 0.08);
+      --font-display: 'Fraunces', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--cream);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      line-height: 1.7;
+    }
+
+    .callback-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 56px 44px;
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .callback-moon {
+      margin-bottom: 24px;
+    }
+
+    .callback-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .callback-message {
+      font-size: 1.05rem;
+      color: var(--cream-dim);
+      line-height: 1.7;
+    }
+
+    .callback-message.error {
+      color: #f87171;
+    }
+
+    .callback-message.loading {
+      color: var(--muted);
+    }
+
+    .callback-check {
+      color: var(--green);
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    @media (max-width: 480px) {
+      .callback-card {
+        padding: 40px 24px;
+      }
+
+      .callback-title {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="callback-card">
+    <div class="callback-moon">
+      <svg width="56" height="56" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="48" cy="48" r="48" fill="#1B2138"/>
+        <line x1="48" y1="14" x2="48" y2="24" stroke="#F5A623" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="35" y1="17" x2="37.5" y2="27" stroke="#F5A623" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="61" y1="17" x2="58.5" y2="27" stroke="#F5A623" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="25" y1="24" x2="29.5" y2="32" stroke="#F5A623" stroke-width="4" stroke-linecap="round"/>
+        <line x1="71" y1="24" x2="66.5" y2="32" stroke="#F5A623" stroke-width="4" stroke-linecap="round"/>
+        <rect x="38" y="36" width="6" height="22" rx="3" fill="#5BC67A"/>
+        <rect x="52" y="36" width="6" height="22" rx="3" fill="#5BC67A"/>
+        <path d="M30 66C30 66 38 76 48 76C58 76 66 66 66 66" stroke="#5BC67A" stroke-width="4.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div id="content">
+      <p class="callback-message loading">Processing your payment...</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var SUPABASE_URL = 'https://odcmrhnwxzgyfodoscqw.supabase.co';
+      var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kY21yaG53eHpneWZvZG9zY3F3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NzA5NTUsImV4cCI6MjA4ODM0Njk1NX0.dbTm2SsVo7iAWfoULhfRgayKBmAO8v7Y2Q-fHzvzSPQ';
+
+      var contentEl = document.getElementById('content');
+
+      function showSuccess() {
+        contentEl.innerHTML =
+          '<span class="callback-check">&#10003;</span>' +
+          '<h1 class="callback-title">You\'re in.</h1>' +
+          '<p class="callback-message">Open your extension to get started.</p>';
+      }
+
+      function showError(msg) {
+        contentEl.innerHTML =
+          '<h1 class="callback-title">Something went wrong</h1>' +
+          '<p class="callback-message error">' + msg + '</p>';
+      }
+
+      var params = new URLSearchParams(window.location.search);
+      var email = params.get('email');
+
+      if (!email) {
+        showError('No email provided. Please return to the payment page and try again.');
+        return;
+      }
+
+      var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      sb.from('profiles')
+        .update({ is_paid: true, paid_at: new Date().toISOString() })
+        .eq('email', email)
+        .then(function (result) {
+          if (result.error) {
+            showError('We could not update your account. Please contact support.');
+          } else {
+            showSuccess();
+          }
+        })
+        .catch(function () {
+          showError('We could not update your account. Please contact support.');
+        });
+    })();
+  </script>
+</body>
+</html>
