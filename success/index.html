@@ -119,11 +119,16 @@
   </div>
 
   <script>
-    (function () {
-      var SUPABASE_URL = 'https://odcmrhnwxzgyfodoscqw.supabase.co';
-      var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kY21yaG53eHpneWZvZG9zY3F3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NzA5NTUsImV4cCI6MjA4ODM0Njk1NX0.dbTm2SsVo7iAWfoULhfRgayKBmAO8v7Y2Q-fHzvzSPQ';
+    (async function () {
+      const SUPABASE_URL = 'https://odcmrhnwxzgyfodoscqw.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kY21yaG53eHpneWZvZG9zY3F3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NzA5NTUsImV4cCI6MjA4ODM0Njk1NX0.dbTm2SsVo7iAWfoULhfRgayKBmAO8v7Y2Q-fHzvzSPQ';
 
-      var contentEl = document.getElementById('content');
+      const contentEl = document.getElementById('content');
+
+      function showLoading() {
+        contentEl.innerHTML =
+          '<p class="callback-message loading">Activating your account...</p>';
+      }
 
       function showSuccess() {
         contentEl.innerHTML =
@@ -138,36 +143,73 @@
           '<p class="callback-message error">' + msg + '</p>';
       }
 
-      var params = new URLSearchParams(window.location.search);
-      var emailParams = params.getAll('email');
-      var email = null;
-      for (var i = emailParams.length - 1; i >= 0; i--) {
-        if (emailParams[i].indexOf('{') === -1 && emailParams[i].indexOf('}') === -1) {
-          email = emailParams[i];
-          break;
-        }
-      }
+      // Read all URL params
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get('status');
+      const paymentId = urlParams.get('payment_id');
+
+      // Use the LAST email param (Dodo may append two)
+      const allEmails = urlParams.getAll('email');
+      const email = allEmails[allEmails.length - 1] || null;
+
+      console.log('[FutureSelf] email:', email);
+      console.log('[FutureSelf] payment_id:', paymentId);
+      console.log('[FutureSelf] status:', status);
 
       if (!email) {
-        showError('No email provided. Please return to the payment page and try again.');
+        showError('Missing email. Contact support.');
         return;
       }
 
-      var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      if (status !== 'succeeded') {
+        showError('Payment not confirmed. Contact support if you were charged.');
+        return;
+      }
 
-      sb.from('profiles')
-        .update({ is_paid: true, paid_at: new Date().toISOString() })
-        .eq('email', email)
-        .then(function (result) {
-          if (result.error) {
-            showError('We could not update your account. Please contact support.');
-          } else {
-            showSuccess();
+      showLoading();
+
+      try {
+        const response = await fetch(
+          `${SUPABASE_URL}/rest/v1/profiles?email=eq.${encodeURIComponent(email)}`,
+          {
+            method: 'PATCH',
+            headers: {
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=representation'
+            },
+            body: JSON.stringify({
+              is_paid: true,
+              paid_at: new Date().toISOString(),
+              payment_id: paymentId || null
+            })
           }
-        })
-        .catch(function () {
-          showError('We could not update your account. Please contact support.');
-        });
+        );
+
+        console.log('[FutureSelf] PATCH response status:', response.status);
+
+        const responseText = await response.text();
+        console.log('[FutureSelf] PATCH response body:', responseText);
+
+        if (!response.ok) {
+          console.error('[FutureSelf] PATCH failed:', response.status, responseText);
+          showError('Something went wrong. Email support. Your payment is safe.');
+          return;
+        }
+
+        // Check if any rows were actually updated (RLS may silently block)
+        let rows = [];
+        try { rows = JSON.parse(responseText); } catch (e) { /* ignore */ }
+        if (Array.isArray(rows) && rows.length === 0) {
+          console.warn('[FutureSelf] 0 rows updated — possible RLS block or email not found:', email);
+        }
+
+        showSuccess();
+      } catch (err) {
+        console.error('[FutureSelf] fetch error:', err);
+        showError('Something went wrong. Email support. Your payment is safe.');
+      }
     })();
   </script>
 </body>
