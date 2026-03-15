@@ -8,7 +8,7 @@
   // --- Supabase Setup ---
   var SUPABASE_URL = 'https://odcmrhnwxzgyfodoscqw.supabase.co';
   var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9kY21yaG53eHpneWZvZG9zY3F3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NzA5NTUsImV4cCI6MjA4ODM0Njk1NX0.dbTm2SsVo7iAWfoULhfRgayKBmAO8v7Y2Q-fHzvzSPQ';
-  var CHROME_STORE_URL = '#pricing'; // Replace with actual Chrome Web Store URL when available
+  var CHROME_STORE_URL = 'https://chromewebstore.google.com/detail/future-self/jplgpepekppkhniphdmphcplfmnldnok';
 
   var supabaseClient = null;
   if (window.supabase && window.supabase.createClient) {
@@ -284,15 +284,7 @@
 
   // --- CTA Button Handlers ---
   function initCTAButtons() {
-    // Free trial CTAs open the auth modal (signup tab)
-    document.querySelectorAll('.cta-free-trial').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (window._openAuthModal) {
-          window._openAuthModal('signup');
-        }
-      });
-    });
+    // Free trial CTAs link directly to the Chrome Web Store
   }
 
   // --- Auth State Management ---
