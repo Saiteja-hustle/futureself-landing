@@ -407,13 +407,21 @@
 
         // type === 'signup', or access_token present with a valid session → email confirmed
         if (type === 'signup' || (session && params['access_token'])) {
-          showSignupSuccess();
+          if (params['source'] === 'extension' && session) {
+            window.location.href = '/auth/extension-callback#access_token=' + session.access_token + '&refresh_token=' + session.refresh_token;
+          } else {
+            showSignupSuccess();
+          }
           return;
         }
 
         // Fallback: if we just got a valid session and no other type clue, treat as signup
         if (session) {
-          showSignupSuccess();
+          if (params['source'] === 'extension') {
+            window.location.href = '/auth/extension-callback#access_token=' + session.access_token + '&refresh_token=' + session.refresh_token;
+          } else {
+            showSignupSuccess();
+          }
           return;
         }
 
