@@ -225,6 +225,13 @@
             } else {
               successEl.textContent = 'Check your email to confirm your account!';
               signupForm.reset();
+              // Record trial start time on the user's profile
+              if (result.data && result.data.user && result.data.user.id) {
+                supabaseClient
+                  .from('profiles')
+                  .upsert({ id: result.data.user.id, trial_started_at: new Date().toISOString() }, { onConflict: 'id' })
+                  .catch(function () { /* silent — table may not exist yet */ });
+              }
             }
           })
           .catch(function (err) {
