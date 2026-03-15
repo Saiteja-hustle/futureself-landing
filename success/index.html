@@ -139,7 +139,14 @@
       }
 
       var params = new URLSearchParams(window.location.search);
-      var email = params.get('email');
+      var emailParams = params.getAll('email');
+      var email = null;
+      for (var i = emailParams.length - 1; i >= 0; i--) {
+        if (emailParams[i].indexOf('{') === -1 && emailParams[i].indexOf('}') === -1) {
+          email = emailParams[i];
+          break;
+        }
+      }
 
       if (!email) {
         showError('No email provided. Please return to the payment page and try again.');
