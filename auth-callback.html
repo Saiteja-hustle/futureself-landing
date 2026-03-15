@@ -170,6 +170,8 @@
         var session = result.data ? result.data.session : null;
 
         if (session && session.user) {
+          localStorage.setItem('futureself_access_token', session.access_token);
+          localStorage.setItem('futureself_refresh_token', session.refresh_token);
           contentEl.innerHTML =
             '<span class="callback-check">&#10003;</span>' +
             '<h1 class="callback-title">Email Confirmed!</h1>' +
