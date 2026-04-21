@@ -216,7 +216,7 @@
         submitBtn.disabled = true;
         submitBtn.textContent = 'Creating account...';
 
-        supabaseClient.auth.signUp({ email: email, password: password })
+        supabaseClient.auth.signUp({ email: email, password: password, options: { emailRedirectTo: "https://futureself.joinhustleclub.com/auth/callback" } })
           .then(function (result) {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Start Free Trial';
