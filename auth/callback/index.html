@@ -282,11 +282,32 @@
       }
 
       // --- STATE A: Email confirmed ---
-      function showSignupSuccess() {
+      function showSignupSuccess(session) {
+        // Forward the session to the Chrome extension if available.
+        // The extension ID is read off the Supabase session (user metadata).
+        if (session && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+          var user = session.user || {};
+          var extensionId =
+            (user.user_metadata && user.user_metadata.extension_id) ||
+            (user.app_metadata && user.app_metadata.extension_id);
+          if (extensionId) {
+            try {
+              chrome.runtime.sendMessage(extensionId, {
+                type: 'FUTURESELF_AUTH_SESSION',
+                access_token: session.access_token,
+                refresh_token: session.refresh_token,
+                user: user
+              });
+            } catch (e) {
+              // Extension not installed or unreachable — fall through to UI.
+            }
+          }
+        }
+
         content.innerHTML =
           '<span class="check-icon">&#10003;</span>' +
-          '<h1>You\'re confirmed! ✓</h1>' +
-          '<p class="subtext">Your account is ready. Click the FutureSelf icon in your Chrome toolbar to get started.</p>' +
+          '<h1>Email confirmed! 🌙</h1>' +
+          '<p class="subtext">Click the FutureSelf icon in your browser toolbar to get started.</p>' +
           '<div class="toolbar-hint">' +
             '<p class="toolbar-hint-label">Find the extension here</p>' +
             toolbarSVG() +
@@ -410,7 +431,7 @@
           if (params['source'] === 'extension' && session) {
             window.location.href = '/auth/extension-callback#access_token=' + session.access_token + '&refresh_token=' + session.refresh_token;
           } else {
-            showSignupSuccess();
+            showSignupSuccess(session);
           }
           return;
         }
@@ -420,7 +441,7 @@
           if (params['source'] === 'extension') {
             window.location.href = '/auth/extension-callback#access_token=' + session.access_token + '&refresh_token=' + session.refresh_token;
           } else {
-            showSignupSuccess();
+            showSignupSuccess(session);
           }
           return;
         }
