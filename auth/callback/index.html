@@ -284,23 +284,18 @@
       // --- STATE A: Email confirmed ---
       function showSignupSuccess(session) {
         // Forward the session to the Chrome extension if available.
-        // The extension ID is read off the Supabase session (user metadata).
+        var EXTENSION_ID = "jplgpepekkniphdmphcplfmnldnok";
         if (session && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
           var user = session.user || {};
-          var extensionId =
-            (user.user_metadata && user.user_metadata.extension_id) ||
-            (user.app_metadata && user.app_metadata.extension_id);
-          if (extensionId) {
-            try {
-              chrome.runtime.sendMessage(extensionId, {
-                type: 'FUTURESELF_AUTH_SESSION',
-                access_token: session.access_token,
-                refresh_token: session.refresh_token,
-                user: user
-              });
-            } catch (e) {
-              // Extension not installed or unreachable — fall through to UI.
-            }
+          try {
+            chrome.runtime.sendMessage(EXTENSION_ID, {
+              type: 'FUTURESELF_AUTH_TOKENS',
+              access_token: session.access_token,
+              refresh_token: session.refresh_token,
+              user: user
+            });
+          } catch (e) {
+            // Extension not installed or unreachable — fall through to UI.
           }
         }
 
