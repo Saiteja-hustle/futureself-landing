@@ -449,9 +449,25 @@
           '<a href="../../index.html" class="back-link">Back to homepage</a>';
       }
 
+      // --- STATE D: Link expired / invalid ---
+      function showLinkError() {
+        content.innerHTML =
+          '<h1 style="margin-bottom:12px">Link expired or invalid</h1>' +
+          '<p class="subtext">Your confirmation link has expired. Please sign up again in the extension to get a new link.</p>' +
+          '<a href="chrome://extensions" target="_blank" rel="noopener" class="btn btn-green">Open Chrome Extensions</a>' +
+          '<a href="../../index.html" class="back-link">Back to homepage</a>';
+      }
+
       // --- Main logic ---
       var params = getAuthParams();
       var type = params['type'] || '';
+
+      // If the provider returned an error in the URL (e.g. otp_expired), bail out
+      // before touching the session or messaging the extension.
+      if (params['error'] || params['error_code'] || params['error_description']) {
+        showLinkError();
+        return;
+      }
 
       // Supabase appends the session to the hash automatically on redirect.
       // getSession() picks it up after the JS SDK processes the URL fragment.
@@ -468,19 +484,10 @@
           return;
         }
 
-        // type === 'signup', or access_token present with a valid session → email confirmed
-        if (type === 'signup' || (session && params['access_token'])) {
+        // Success path requires an access_token in the URL — without it, we have
+        // nothing to hand off to the extension.
+        if (params['access_token']) {
           if (params['source'] === 'extension' && session) {
-            window.location.href = '/auth/extension-callback#access_token=' + session.access_token + '&refresh_token=' + session.refresh_token;
-          } else {
-            showSignupSuccess(session);
-          }
-          return;
-        }
-
-        // Fallback: if we just got a valid session and no other type clue, treat as signup
-        if (session) {
-          if (params['source'] === 'extension') {
             window.location.href = '/auth/extension-callback#access_token=' + session.access_token + '&refresh_token=' + session.refresh_token;
           } else {
             showSignupSuccess(session);
