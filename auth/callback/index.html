@@ -283,32 +283,79 @@
 
       // --- STATE A: Email confirmed ---
       function showSignupSuccess(session) {
-        // Forward the session to the Chrome extension if available.
-        var EXTENSION_ID = "jplgpepekkniphdmphcplfmnldnok";
-        if (session && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
-          var user = session.user || {};
-          try {
-            chrome.runtime.sendMessage(EXTENSION_ID, {
-              type: 'FUTURESELF_AUTH_TOKENS',
-              access_token: session.access_token,
-              refresh_token: session.refresh_token,
-              user: user
-            });
-          } catch (e) {
-            // Extension not installed or unreachable — fall through to UI.
+        var EXTENSION_ID = "jplgpepekppkhniphdmphcplfmnldnok";
+
+        function showFallback() {
+          content.innerHTML =
+            '<span class="check-icon">&#10003;</span>' +
+            '<h1>Email confirmed! 🌙</h1>' +
+            '<p class="subtext">Click the FutureSelf icon in your browser toolbar to get started.</p>' +
+            '<div class="toolbar-hint">' +
+              '<p class="toolbar-hint-label">Find the extension here</p>' +
+              toolbarSVG() +
+            '</div>' +
+            '<a href="chrome://extensions" target="_blank" rel="noopener" class="btn btn-green">Open Chrome Extensions</a>' +
+            '<a href="../../index.html" class="back-link">Back to homepage</a>';
+        }
+
+        function showLoggingIn() {
+          content.innerHTML =
+            '<div class="spinner"></div>' +
+            '<h1>Logging you in…</h1>' +
+            '<p class="subtext" style="color: var(--muted);">Opening FutureSelf…</p>';
+        }
+
+        // Parse access_token and refresh_token from the URL hash.
+        var hash = window.location.hash.substring(1);
+        var hashParams = {};
+        if (hash) {
+          hash.split('&').forEach(function (pair) {
+            var parts = pair.split('=');
+            if (parts[0]) hashParams[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+          });
+        }
+
+        var access_token = hashParams['access_token'] || (session && session.access_token);
+        var refresh_token = hashParams['refresh_token'] || (session && session.refresh_token);
+
+        var canMessageExtension = access_token && refresh_token &&
+          typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage;
+
+        if (!canMessageExtension) {
+          showFallback();
+          return;
+        }
+
+        var handled = false;
+        function finish(success) {
+          if (handled) return;
+          handled = true;
+          if (success) {
+            showLoggingIn();
+            setTimeout(function () {
+              window.location.href = 'chrome-extension://' + EXTENSION_ID + '/options.html';
+            }, 600);
+          } else {
+            showFallback();
           }
         }
 
-        content.innerHTML =
-          '<span class="check-icon">&#10003;</span>' +
-          '<h1>Email confirmed! 🌙</h1>' +
-          '<p class="subtext">Click the FutureSelf icon in your browser toolbar to get started.</p>' +
-          '<div class="toolbar-hint">' +
-            '<p class="toolbar-hint-label">Find the extension here</p>' +
-            toolbarSVG() +
-          '</div>' +
-          '<a href="chrome://extensions" target="_blank" rel="noopener" class="btn btn-green">Open Chrome Extensions</a>' +
-          '<a href="../../index.html" class="back-link">Back to homepage</a>';
+        try {
+          chrome.runtime.sendMessage(
+            EXTENSION_ID,
+            { type: "SUPABASE_SESSION", session: { access_token: access_token, refresh_token: refresh_token } },
+            function (response) {
+              var err = chrome.runtime && chrome.runtime.lastError;
+              finish(!err && !!response);
+            }
+          );
+        } catch (e) {
+          finish(false);
+          return;
+        }
+
+        // Timeout fallback in case the extension never responds.
+        setTimeout(function () { finish(false); }, 2000);
       }
 
       // SVG illustration: a simplified Chrome toolbar with a highlighted puzzle-piece area
