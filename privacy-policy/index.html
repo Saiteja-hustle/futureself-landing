@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — FutureSelf</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96' fill='none'><circle cx='48' cy='48' r='48' fill='%231B2138'/><line x1='48' y1='14' x2='48' y2='24' stroke='%23F5A623' stroke-width='4.5' stroke-linecap='round'/><line x1='35' y1='17' x2='37.5' y2='27' stroke='%23F5A623' stroke-width='4.5' stroke-linecap='round'/><line x1='61' y1='17' x2='58.5' y2='27' stroke='%23F5A623' stroke-width='4.5' stroke-linecap='round'/><line x1='25' y1='24' x2='29.5' y2='32' stroke='%23F5A623' stroke-width='4' stroke-linecap='round'/><line x1='71' y1='24' x2='66.5' y2='32' stroke='%23F5A623' stroke-width='4' stroke-linecap='round'/><rect x='38' y='36' width='6' height='22' rx='3' fill='%235BC67A'/><rect x='52' y='36' width='6' height='22' rx='3' fill='%235BC67A'/><path d='M30 66C30 66 38 76 48 76C58 76 66 66 66 66' stroke='%235BC67A' stroke-width='4.5' stroke-linecap='round'/></svg>" type="image/svg+xml">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #0a0e1a;
+      --bg-card: #111627;
+      --gold: #e8b931;
+      --green: #4ade80;
+      --cream: #f0e6d3;
+      --cream-dim: rgba(240, 230, 211, 0.65);
+      --muted: #7a8194;
+      --border: rgba(240, 230, 211, 0.08);
+      --font-display: 'Fraunces', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--cream);
+      min-height: 100vh;
+      line-height: 1.75;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--cream);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-back {
+      font-size: 0.875rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--cream); }
+
+    /* ── Content ── */
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+      line-height: 1.15;
+    }
+
+    .page-meta {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 56px;
+    }
+
+    /* ── Sections ── */
+    .policy-section {
+      margin-bottom: 48px;
+    }
+
+    .policy-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .policy-section p {
+      color: var(--cream-dim);
+      margin-bottom: 14px;
+      font-size: 1rem;
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      list-style: none;
+      margin: 14px 0;
+      padding: 0;
+    }
+
+    .policy-section ul li {
+      color: var(--cream-dim);
+      padding: 6px 0 6px 20px;
+      position: relative;
+      font-size: 1rem;
+    }
+
+    .policy-section ul li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    .highlight-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+
+    .highlight-box p {
+      margin: 0 !important;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .footer a {
+      color: var(--gold);
+    }
+
+    @media (max-width: 480px) {
+      .content { padding: 40px 20px 72px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <svg width="22" height="22" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="48" cy="48" r="48" fill="#1B2138"/>
+          <line x1="48" y1="14" x2="48" y2="24" stroke="#F5A623" stroke-width="4.5" stroke-linecap="round"/>
+          <line x1="35" y1="17" x2="37.5" y2="27" stroke="#F5A623" stroke-width="4.5" stroke-linecap="round"/>
+          <line x1="61" y1="17" x2="58.5" y2="27" stroke="#F5A623" stroke-width="4.5" stroke-linecap="round"/>
+          <line x1="25" y1="24" x2="29.5" y2="32" stroke="#F5A623" stroke-width="4" stroke-linecap="round"/>
+          <line x1="71" y1="24" x2="66.5" y2="32" stroke="#F5A623" stroke-width="4" stroke-linecap="round"/>
+          <rect x="38" y="36" width="6" height="22" rx="3" fill="#5BC67A"/>
+          <rect x="52" y="36" width="6" height="22" rx="3" fill="#5BC67A"/>
+          <path d="M30 66C30 66 38 76 48 76C58 76 66 66 66 66" stroke="#5BC67A" stroke-width="4.5" stroke-linecap="round"/>
+        </svg>
+        FutureSelf
+      </a>
+      <a href="/" class="nav-back">← Back to home</a>
+    </div>
+  </nav>
+
+  <main class="content">
+    <h1 class="page-title">Privacy Policy</h1>
+    <p class="page-meta">Effective date: May 7, 2026 &nbsp;·&nbsp; FutureSelf Chrome Extension &amp; Website</p>
+
+    <div class="policy-section">
+      <h2>Overview</h2>
+      <p>FutureSelf is a Chrome extension that blocks distracting websites during your sleep hours. This policy explains exactly what data we collect, how it is stored, and what we do — and don't do — with it.</p>
+      <div class="highlight-box">
+        <p>The short version: almost all data stays on your device. We collect your email address for account authentication only. We never sell or share your personal data with any third party.</p>
+      </div>
+    </div>
+
+    <div class="policy-section">
+      <h2>1. What Data We Collect</h2>
+      <p>FutureSelf collects only the minimum data necessary to function:</p>
+      <ul>
+        <li><strong>Email address</strong> — collected when you create an account or purchase a license. Used solely to authenticate your account and deliver your license.</li>
+        <li><strong>Authentication tokens</strong> — short-lived access tokens and refresh tokens issued by our authentication provider (Supabase) after sign-in. These are stored locally in your browser and used to verify your license on subsequent launches.</li>
+        <li><strong>Extension settings</strong> — your configured sleep schedule (start time, end time), your blocked-site preferences, and any custom rules you create. These are stored entirely on your device.</li>
+      </ul>
+      <p>We do <strong>not</strong> collect browsing history, visited URLs, page content, keystrokes, or any behavioral data.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>2. How Data Is Handled</h2>
+      <p>Your extension settings and authentication tokens are stored in <code>chrome.storage.local</code> — a sandboxed browser storage area that is private to the FutureSelf extension and never transmitted to us or any third party.</p>
+      <p>When you sign in, your email address is passed to Supabase (our authentication provider) to verify your license. This exchange is performed over HTTPS. After verification, Supabase issues authentication tokens that are stored locally; your email is not stored on your device beyond what your browser caches for the sign-in flow.</p>
+      <p>We do <strong>not</strong>:</p>
+      <ul>
+        <li>Log or store your browsing activity on our servers</li>
+        <li>Transmit your extension settings or blocked-site list to any server</li>
+        <li>Run analytics, tracking pixels, or fingerprinting scripts on this website or in the extension</li>
+        <li>Use your email address for marketing without explicit opt-in</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>3. Storage Details</h2>
+      <p>The following data is stored <strong>locally in your browser</strong> via <code>chrome.storage.local</code> and never leaves your device:</p>
+      <ul>
+        <li>Sleep schedule (start time, end time, active days)</li>
+        <li>Blocked website list and any custom allow/block rules</li>
+        <li>Authentication tokens (access token + refresh token) issued by Supabase after login</li>
+        <li>Extension preferences and UI state</li>
+      </ul>
+      <p><strong>Supabase</strong> (our authentication provider, <a href="https://supabase.com" target="_blank" rel="noopener noreferrer">supabase.com</a>) stores your email address and a hashed record of your license status on their servers solely to verify your paid access. Supabase's privacy policy governs how they handle this data. We do not use Supabase for any purpose other than authentication and license verification.</p>
+      <p>No other third-party services receive any user data.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>4. Data Sharing</h2>
+      <p>We do not sell, rent, trade, or otherwise share your personal data with any third party, full stop.</p>
+      <p>The only data transmission that occurs is:</p>
+      <ul>
+        <li>Your email address sent to Supabase during sign-in to verify your license — governed by Supabase's terms and privacy policy.</li>
+        <li>Standard server logs (IP address, timestamp, HTTP method) generated when your browser requests pages on this website — retained for up to 30 days for security monitoring and deleted automatically.</li>
+      </ul>
+      <p>We will disclose data only if required to do so by law or in response to a valid legal process (subpoena, court order). We will notify you of such a request where legally permitted.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>5. Data Retention</h2>
+      <p>Your local extension data persists until you uninstall the FutureSelf extension or clear its storage via Chrome's extension management settings.</p>
+      <p>Your email address and license record in Supabase are retained as long as your account is active. You can request deletion at any time (see Contact section below).</p>
+      <p>Server access logs are automatically deleted after 30 days.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>6. Children's Privacy</h2>
+      <p>FutureSelf is not directed at children under 13. We do not knowingly collect personal information from anyone under 13. If you believe a child has provided us with personal data, contact us and we will delete it promptly.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>7. Changes to This Policy</h2>
+      <p>If we make material changes to this policy, we will update the effective date at the top of this page and notify active users by email where feasible. Continued use of FutureSelf after changes are posted constitutes acceptance of the updated policy.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>8. Contact &amp; Data Requests</h2>
+      <p>For any privacy-related questions, data access requests, or deletion requests, contact us at:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:privacy@getfutureself.com">privacy@getfutureself.com</a></li>
+        <li><strong>Website:</strong> <a href="https://getfutureself.com">getfutureself.com</a></li>
+      </ul>
+      <p>We will respond to data requests within 30 days. To request deletion of your account and associated data, email us from the address associated with your FutureSelf account.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 FutureSelf &nbsp;·&nbsp; <a href="/">Home</a> &nbsp;·&nbsp; <a href="mailto:privacy@getfutureself.com">privacy@getfutureself.com</a></p>
+  </footer>
+
+</body>
+</html>
