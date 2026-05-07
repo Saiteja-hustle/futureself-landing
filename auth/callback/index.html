@@ -458,6 +458,15 @@
           '<a href="../../index.html" class="back-link">Back to homepage</a>';
       }
 
+      // --- DEBUG: log URL info before any token extraction ---
+      console.log('[FutureSelf Auth Debug] window.location.href:', window.location.href);
+      console.log('[FutureSelf Auth Debug] window.location.hash:', window.location.hash);
+
+      var debugEl = document.createElement('pre');
+      debugEl.style.cssText = 'margin-top:20px;padding:12px;background:#1a1f35;border:1px solid rgba(240,230,211,0.2);border-radius:8px;font-size:0.75rem;color:#f0e6d3;text-align:left;white-space:pre-wrap;word-break:break-all;';
+      debugEl.textContent = 'hash: ' + (window.location.hash || '(empty)') + '\nhref: ' + window.location.href;
+      document.getElementById('content').appendChild(debugEl);
+
       // --- Main logic ---
       var params = getAuthParams();
       var type = params['type'] || '';
