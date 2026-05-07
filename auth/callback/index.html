@@ -289,12 +289,12 @@
           content.innerHTML =
             '<span class="check-icon">&#10003;</span>' +
             '<h1>Email confirmed! 🌙</h1>' +
-            '<p class="subtext">Click the FutureSelf icon in your browser toolbar to get started.</p>' +
+            '<p class="subtext">Your email is confirmed. Click below to open the extension and log in with your password.</p>' +
             '<div class="toolbar-hint">' +
               '<p class="toolbar-hint-label">Find the extension here</p>' +
               toolbarSVG() +
             '</div>' +
-            '<a href="chrome://extensions" target="_blank" rel="noopener" class="btn btn-green">Open Chrome Extensions</a>' +
+            '<a href="chrome-extension://jplgpepekkniphdmphcplfmnldnok/login.html" class="btn btn-green">Open FutureSelf &amp; Log In →</a>' +
             '<a href="../../index.html" class="back-link">Back to homepage</a>';
         }
 
@@ -461,11 +461,6 @@
       // --- DEBUG: log URL info before any token extraction ---
       console.log('[FutureSelf Auth Debug] window.location.href:', window.location.href);
       console.log('[FutureSelf Auth Debug] window.location.hash:', window.location.hash);
-
-      var debugEl = document.createElement('pre');
-      debugEl.style.cssText = 'margin-top:20px;padding:12px;background:#1a1f35;border:1px solid rgba(240,230,211,0.2);border-radius:8px;font-size:0.75rem;color:#f0e6d3;text-align:left;white-space:pre-wrap;word-break:break-all;';
-      debugEl.textContent = 'hash: ' + (window.location.hash || '(empty)') + '\nhref: ' + window.location.href;
-      document.getElementById('content').appendChild(debugEl);
 
       // --- Main logic ---
       var params = getAuthParams();
